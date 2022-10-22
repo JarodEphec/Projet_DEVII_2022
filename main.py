@@ -1,7 +1,4 @@
-# This is a sample Python script.
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import sqlite3 as sl
 from tabulate import tabulate
 
@@ -69,7 +66,7 @@ def show_one(id):
     print(tabulate(table_for_tabulate, headers='firstrow', tablefmt='fancy_grid', numalign="center"))
 def edit_DB(id, state_to_edit):
     data = get_all_data().fetchall()[id]
-    if state_to_edit > 3 or state_to_edit < 1:
+    if state_to_edit > 2 or state_to_edit < 1:
         print("Veulliez entrer une option valide.")
     else:
         if data[state_to_edit] == 0:
@@ -80,8 +77,6 @@ def edit_DB(id, state_to_edit):
             write_data(id, state_to_edit, 0)
     show_one(id)
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     menu()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
