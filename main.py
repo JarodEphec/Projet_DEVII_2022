@@ -84,14 +84,14 @@ def edit_db(id, state_to_edit):
     # the function that will actually update the DB
     # and show the car with the updated state.
     data = get_all_data().fetchall()[id]
-    if state_to_edit > 2 or state_to_edit < 1:
+    if state_to_edit > 3 or state_to_edit < 2:
         print("Veulliez entrer une option valide.")
     else:
         if data[state_to_edit] == 0:
             write_data(id, state_to_edit, 1)
         else:
             write_data(id, state_to_edit, 0)
-    show_one(id)
+        show_one(id)
 
 
 if __name__ == '__main__':
