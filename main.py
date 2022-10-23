@@ -52,6 +52,9 @@ def write_data(id, state_to_edit, new_state):
         elif state_to_edit == 3:  # If selected option was to change renting state.
             return db_data.execute(f"UPDATE voiture SET status_location = {new_state} WHERE id = {id};")
 
+def create_row(data):
+    # This function will create a row to append to the tabulate.
+    return [data[0], data[1], "Oui" if data[2] else "Non", "Oui" if data[3] else "Non"]
 
 def show_all():
     # This function will put in shape all the data from the DB
@@ -60,14 +63,7 @@ def show_all():
     data = get_all_data()
     table_for_tabulate.append(["Identifiant", "Modèle", "Est vendue ?", "Est louée ?"])
     for row in data:
-        if row[2] == 0 and row[3] == 0:
-            table_for_tabulate.append([row[0], row[1], "Non", "Non"])
-        elif row[2] == 0 and row[3] == 1:
-            table_for_tabulate.append([row[0], row[1], "Non", "Oui"])
-        elif row[2] == 1 and row[3] == 0:
-            table_for_tabulate.append([row[0], row[1], "Oui", "Non"])
-        elif row[2] == 1 and row[3] == 1:
-            table_for_tabulate.append([row[0], row[1], "Oui", "Oui"])
+        table_for_tabulate.append(create_row(row))
 
     print(tabulate(table_for_tabulate, headers='firstrow', tablefmt='fancy_grid', numalign="center"))
 
@@ -78,14 +74,7 @@ def show_one(id):
     table_for_tabulate = []
     data = get_all_data().fetchall()[id]
     table_for_tabulate.append(["Identifiant", "Modèle", "Est vendue ?", "Est louée ?"])
-    if data[2] == 0 and data[3] == 0:
-        table_for_tabulate.append([data[0], data[1], "Non", "Non"])
-    elif data[2] == 0 and data[3] == 1:
-        table_for_tabulate.append([data[0], data[1], "Non", "Oui"])
-    elif data[2] == 1 and data[3] == 0:
-        table_for_tabulate.append([data[0], data[1], "Oui", "Non"])
-    elif data[2] == 1 and data[3] == 1:
-        table_for_tabulate.append([data[0], data[1], "Oui", "Oui"])
+    table_for_tabulate.append(create_row(data))
 
     print(tabulate(table_for_tabulate, headers='firstrow', tablefmt='fancy_grid', numalign="center"))
 
