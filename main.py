@@ -2,6 +2,42 @@ import sqlite3 as sl
 from tabulate import tabulate
 
 
+class Car:
+    """
+    This object creat a car with all it's data, some values can be change and write into the DB.
+    All the values are private.
+    """
+    def __init__(self, id_car, name, sale_status, rental_status):
+        self.__id_car = id_car
+        self.__name = name
+        self.__sale_status = sale_status
+        self.__rental_status = rental_status
+
+    @property
+    def id_car(self):
+        return self.__id_car
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def sale_status(self):
+        return self.__sale_status
+
+    @sale_status.setter
+    def sale_status(self, new):
+        self.__sale_status = 0 if self.__sale_status else 1
+
+    @property
+    def rental_status(self):
+        return self.__rental_status
+
+    @rental_status.setter
+    def rental_status(self, new):
+        self.__rental_status = 0 if self.rental_status else 1
+
+
 def menu():
     """
     This function will print the main menu and redirect the user to which features of the script he wants to run.
@@ -49,21 +85,21 @@ def get_all_data():
         return db_data.execute("SELECT * FROM voiture")
 
 
-def write_data(id_car, state_to_edit, new_state):
+def write_data(car_to_edit, state_to_edit):
     """
     This function will change into the DB the selected state of the selected car.
-    :param id_car: The id of the car.
+    :param car_to_edit: The object where all the specification the car is.
     :param state_to_edit: The state that is selected to be change (EG: rent status).
-    :param new_state: The new state that will be written into the DB.
     :return: The result of the SQL query.
     """
     db_data = connection()
-    id_car += 1  # Translate back the id from list position (begin by zero) to DB (begin by one).
     with db_data:
         if state_to_edit == 2:  # If selected option was to change selling state.
-            return db_data.execute(f"UPDATE voiture SET status_vente = {new_state} WHERE id = {id_car};")
+            return db_data.execute(
+                f"UPDATE voiture SET status_vente = {car_to_edit.sale_status} WHERE id = {car_to_edit.id_car};")
         elif state_to_edit == 3:  # If selected option was to change renting state.
-            return db_data.execute(f"UPDATE voiture SET status_location = {new_state} WHERE id = {id_car};")
+            return db_data.execute(
+                f"UPDATE voiture SET status_location = {car_to_edit.rental_status} WHERE id = {car_to_edit.id_car};")
 
 
 def create_row(data):
@@ -104,14 +140,19 @@ def edit_db(id_car, state_to_edit):
     :param state_to_edit: The state that is selected to be change (EG: rent status).
     """
     data = get_all_data().fetchall()[id_car]
-    if state_to_edit > 3 or state_to_edit < 2:
-        print("Veulliez entrer une option valide.")
-    else:
-        if data[state_to_edit] == 0:
-            write_data(id_car, state_to_edit, 1)
-        else:
-            write_data(id_car, state_to_edit, 0)
+    if state_to_edit == 2:
+        car_to_edit = Car(data[0], data[1], data[2], data[3])
+        car_to_edit.sale_status = "New"
+        write_data(car_to_edit, state_to_edit)
         show_one(id_car)
+
+    elif state_to_edit == 3:
+        car_to_edit = Car(data[0], data[1], data[2], data[3])
+        car_to_edit.rental_status = "New"
+        write_data(car_to_edit, state_to_edit)
+        show_one(id_car)
+    else:
+        print("Veulliez entrer une option valide.")
 
 
 if __name__ == '__main__':
