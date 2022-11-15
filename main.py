@@ -25,16 +25,14 @@ class Car:
     def sale_status(self):
         return self.__sale_status
 
-    @sale_status.setter
-    def sale_status(self, new):
+    def switch_sale_status(self):
         self.__sale_status = 0 if self.__sale_status else 1
 
     @property
     def rental_status(self):
         return self.__rental_status
 
-    @rental_status.setter
-    def rental_status(self, new):
+    def switch_rental_status(self):
         self.__rental_status = 0 if self.rental_status else 1
 
 
@@ -142,13 +140,13 @@ def edit_db(id_car, state_to_edit):
     data = get_all_data().fetchall()[id_car]
     if state_to_edit == 2:
         car_to_edit = Car(data[0], data[1], data[2], data[3])
-        car_to_edit.sale_status = "New"
+        car_to_edit.switch_sale_status()
         write_data(car_to_edit, state_to_edit)
         show_one(id_car)
 
     elif state_to_edit == 3:
         car_to_edit = Car(data[0], data[1], data[2], data[3])
-        car_to_edit.rental_status = "New"
+        car_to_edit.switch_rental_status()
         write_data(car_to_edit, state_to_edit)
         show_one(id_car)
     else:
