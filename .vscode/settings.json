@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "devII",
+            "database": "${workspaceFolder:Projet_DEVII_2022}/dbtest.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
