@@ -5,7 +5,7 @@ from . import lib
 
 class Car:
     """
-    This object creat a car with all it's data, some values can be change and write into the DB.
+    This object create a car with all it's data, some values can be change and write into the DB.
     All the values are private.
     """
     def __init__(self, id_car, name, sale_status, rental_status):
