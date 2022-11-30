@@ -26,6 +26,27 @@ class Car:
             return False
         return True
 
+    @property
+    def model(self):
+        return self._model
+
+    @property
+    def brand(self):
+        return self._brand
+
+    @property
+    def motor(self):
+        return self._motor
+
+    @property
+    def type(self):
+        return self._type
+
+    @property
+    def last_vehicle_safety_insurance(self):
+        return self._last_vehicle_safety_insurance
+
+
     def is_ranted(self) -> bool:
         return True if self._rental_status == 1 else False
 
