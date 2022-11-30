@@ -1,4 +1,4 @@
-from lib import Cli, Gui
+from lib import Cli#, Gui
 import argparse
 
 if __name__ == '__main__':
@@ -7,7 +7,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if args.interface == 'cli':
         app = Cli()
-    elif args.interface == 'gui':
-        app = Gui()
+        app.show_all()
+    # elif args.interface == 'gui':
+    #     app = Gui()
     else:
         raise ValueError("Wrong type of interface")

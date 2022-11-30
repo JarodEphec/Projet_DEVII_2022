@@ -3,7 +3,6 @@ from lib import Stock, Car
 
 class Core():
     def __init__(self):
-        self.running = True
         self.db = sl.connect("dbAxelR.db")
         self.cursor = self.db.cursor()
         self.stock = Stock(79)

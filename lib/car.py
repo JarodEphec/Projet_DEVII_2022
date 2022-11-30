@@ -45,7 +45,6 @@ class Car:
     def last_vehicle_safety_insurance(self):
         return self._last_vehicle_safety_insurance
 
-
     def is_ranted(self) -> bool:
         return True if self._rental_status == 1 else False
 
