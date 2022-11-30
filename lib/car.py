@@ -1,11 +1,10 @@
-from lib.position import Position
 from datetime import datetime
 from datetime import date
 
 
 class Car:
     def __init__(self, id, model, brand, motor, type, last_vehicle_safety_insurance, sold_status, rental_status,
-                 position=Position()):
+                 position):
         self.id = id
         self._model = model
         self._brand = brand
