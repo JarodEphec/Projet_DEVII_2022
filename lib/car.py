@@ -1,4 +1,4 @@
-from position import Position
+from lib.position import Position
 from datetime import datetime
 from datetime import date
 
