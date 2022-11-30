@@ -1,4 +1,4 @@
-from car import Car
+from lib.car import Car
 
 class History():
     def __init__(self, purchases={}):

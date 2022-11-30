@@ -1,4 +1,4 @@
-from history import History
+from lib.history import History
 
 class Client():
     def __init__(self, id, name, email, history=History()):

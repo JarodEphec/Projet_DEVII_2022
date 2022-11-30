@@ -1,13 +1,14 @@
 import sqlite3 as sl
 from tabulate import tabulate
-from . import lib
+import lib
 
 
-class Car:
+class Car1:
     """
     This object create a car with all it's data, some values can be change and write into the DB.
     All the values are private.
     """
+
     def __init__(self, id_car, name, sale_status, rental_status):
         self.__id_car = id_car
         self.__name = name
@@ -155,5 +156,7 @@ def edit_db(id_car, state_to_edit):
 
 
 if __name__ == '__main__':
-    """This function only purpose is to call the menu function when the script is executed."""
-    menu()
+    # menu()
+    oui = lib.car.Car(id=1, model='500', brand='fiat', motor='69', type='citadine',
+                      last_vehicle_safety_insurance='2022-02-13', sold_status=0, rental_status=0)
+    print(oui.id)

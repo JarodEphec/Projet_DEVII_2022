@@ -1,5 +1,5 @@
-from car import Car
-from position import Position
+from lib.car import Car
+from lib.position import Position
 
 class Stock():
     def __init__(self, cars=self._get_cars()):
