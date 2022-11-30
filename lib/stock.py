@@ -54,5 +54,5 @@ class Stock():
                 rentable_cars.append(car)
         return rentable_cars
 
-    def _get_cars(self) -> list[Car]:
-        pass
+    def get_cars(self) -> list[Car]:
+        return self._cars
