@@ -1,5 +1,5 @@
 import sqlite3 as sl
-from lib import Stock, Car
+from lib import Stock, Car, Client
 
 class Core():
     def __init__(self):
@@ -7,6 +7,13 @@ class Core():
         self.cursor = self.db.cursor()
         self.stock = Stock(79)
         self._init_stock()
+        self.customer = Client()
+
+    def look_client_information(self):
+        """this method is fetching all the data related to the customers in the database"""
+        self.cursor.execute("SELECT client.id, client.name, client.date_of_inscription, client.history, client.email from client ")
+        for row in self.cursor.fetchall():
+            self.customer.add(Client(row[0], row[1], row[2], row[3], row[4]))
 
     def _init_stock(self) -> None:
         """Initialize the stock with the cars in the database"""
@@ -18,16 +25,16 @@ class Core():
         """Returns the menu"""
         return {
             "title": "Menu",
-            "description": "Choisissez une option",
-            "options": {
-                "1": ("Location d'une voiture", "rent_car()"),
-                "2": ("Restituer une voiture", "send_back()"),
-                "3": ("Ajouter une nouvelle voiture", "add_car()"),
-                "4": ("Supprimer une voiture du stock", "delete_car()"),
-                "5": ("Lister toutes les voitures", "show_all()"),
-                "6": ("Lister les voitures disponibles", "show_rentable()"),
-                "7": ("Lister les voitures louées", "show_rented()"),
-                "8": ("Lister les voitures vendues", "show_solded()"),
-                "9": ("Quitter", "exit()")
-            }
+            "options": [
+                "Rent a car",
+                "Get a car back",
+                "Add a car",
+                "Remove a car",
+                "List all cars",
+                "List all rentable cars",
+                "List all rented cars",
+                "List all sold cars",
+                "List all unsold cars",
+                "Exit"
+            ]
         }
