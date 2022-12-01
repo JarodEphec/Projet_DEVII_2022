@@ -7,8 +7,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if args.interface == 'cli':
         app = Cli()
-        #app.show_all()
-        app.main_menu()
+        app.menu()
     # elif args.interface == 'gui':
     #     app = Gui()
     else:

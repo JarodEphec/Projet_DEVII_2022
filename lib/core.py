@@ -18,16 +18,16 @@ class Core():
         """Returns the menu"""
         return {
             "title": "Menu",
-            "options": [
-                "Rent a car",
-                "Get a car back",
-                "Add a car",
-                "Remove a car",
-                "List all cars",
-                "List all rentable cars",
-                "List all rented cars",
-                "List all sold cars",
-                "List all unsold cars",
-                "Exit"
-            ]
+            "description": "Choisissez une option",
+            "options": {
+                "1": ("Location d'une voiture", "rent_car()"),
+                "2": ("Restituer une voiture", "send_back()"),
+                "3": ("Ajouter une nouvelle voiture", "add_car()"),
+                "4": ("Supprimer une voiture du stock", "delete_car()"),
+                "5": ("Lister toutes les voitures", "show_all()"),
+                "6": ("Lister les voitures disponibles", "show_rentable()"),
+                "7": ("Lister les voitures louées", "show_rented()"),
+                "8": ("Lister les voitures vendues", "show_solded()"),
+                "9": ("Quitter", "exit()")
+            }
         }
