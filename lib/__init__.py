@@ -4,3 +4,4 @@ from .history import History
 from .stock import Stock
 from .core import Core
 from .cli import Cli
+from .gui import Gui
