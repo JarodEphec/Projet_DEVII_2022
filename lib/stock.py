@@ -54,5 +54,21 @@ class Stock():
                 rentable_cars.append(car)
         return rentable_cars
 
+    def get_rented(self) -> list[Car]:
+        """Returns a list of all rentable cars"""
+        rented_cars = []
+        for car in self._cars:
+            if car.is_sold():
+                rented_cars.append(car)
+        return rented_cars
+
+    def get_solded(self) -> list[Car]:
+        """Returns a list of all solded cars"""
+        solded_cars = []
+        for car in self._cars:
+            if car.is_rented():
+                solded_cars.append(car)
+        return solded_cars
+
     def get_cars(self) -> list[Car]:
         return self._cars
