@@ -15,12 +15,14 @@ class Gui:
         self.root.mainloop()
 
     def menu(self):
+        """show the GUI main page, the menu"""
         menu = self.core.menu()
         ttk.Label(self.frm, text="test", padding=10).grid(column=0, row=0, columnspan=6)
         for key, option in menu["options"].items():
             if int(key) != 9:
                 print(f"self.{menu['options'][key][1][:-2]}")
-                ttk.Button(self.frm, text=option[0], command=lambda: getattr(self, menu['options'][key][1][:-2])(), padding=5).grid(column=1, row=int(key)+1)
+                ttk.Button(self.frm, text=option[0], command=lambda: getattr(self, menu['options'][key][1][:-2])(),
+                           padding=5).grid(column=1, row=int(key)+1)
         ttk.Button(self.frm, text="Quit", command=self.root.destroy).grid(column=1, row=11)
 
     def show_all(self):

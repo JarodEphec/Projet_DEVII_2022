@@ -16,6 +16,9 @@ class Car:
         self.position = position
 
     def is_rentable(self) -> bool:
+        """ Tell if the car is retable or not, the car is rentable if it's safety check is due to over 30 days
+        return true if the date of today minus the date of the last check lower than 335 if not return false
+        """
         today_date = datetime.today().strftime('%Y-%m-%d')
         d0 = date(int(today_date[:4]), int(today_date[5:7]), int(today_date[8:10]))
         d1 = date(int(self._last_vehicle_safety_insurance[:4]), int(self._last_vehicle_safety_insurance[5:7]),
@@ -45,8 +48,14 @@ class Car:
     def last_vehicle_safety_insurance(self):
         return self._last_vehicle_safety_insurance
 
-    def is_rented(self) -> bool:
+    def is_ranted(self) -> bool:
+        """ Check if the car is rented
+        O is False and 1 is true due to sqlite limitation
+        """
         return True if self._rental_status == 1 else False
 
     def is_sold(self) -> bool:
+        """ Check if the car is sold
+        O is False and 1 is true due to sqlite limitation
+        """
         return True if self._sold_status == 1 else False
