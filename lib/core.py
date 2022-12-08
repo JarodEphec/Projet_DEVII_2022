@@ -20,7 +20,7 @@ class Core():
             "title": "Menu",
             "description": "Choisissez une option",
             "options": {
-                "1": ("Location d'une voiture", "rent_car()"),
+                "1": ("Locatiprinton d'une voiture", "rent_car()"),
                 "2": ("Restituer une voiture", "send_back()"),
                 "3": ("Ajouter une nouvelle voiture", "add_car()"),
                 "4": ("Supprimer une voiture du stock", "delete_car()"),
