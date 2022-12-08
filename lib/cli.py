@@ -19,9 +19,9 @@ class Cli():
                 try:
                     exec(f"self.{menu['options'][option_choose][1]}")
                 except AttributeError:
-                    print(f"[ERROR] {menu['options'][option_choose][1]} is not a function")
+                    print(f"[ERROR] '{menu['options'][option_choose][1]}' is not a function")
             else:
-                print("Wrong option !")
+                print("Mauvaise option !")
 
     def rent_car(self):
         pass
@@ -63,7 +63,7 @@ class Cli():
         :return: A new list in human friendly language.
         """
         return [data.id, data.model, data.brand, data.motor, data.type, data.last_vehicle_safety_insurance,
-                "Oui" if data.is_sold() else "Non", "Oui" if data.is_ranted() else "Non", data.position]
+                "Oui" if data.is_sold() else "Non", "Oui" if data.is_rented() else "Non", data.position]
 
     def exit(self):
         print("Au revoir !")
