@@ -23,7 +23,6 @@ class Car:
         RAISE : Return an error if the date format is wrong
         """
         try:
-
             # formatting the date using strptime() function
             datetime.strptime(self._last_vehicle_safety_insurance, '%Y-%m-%d')
 
@@ -68,9 +67,10 @@ class Car:
             return self._last_vehicle_safety_insurance
         except ValueError:
             print("Format incorrect, il devrait etre AAAA-MM-JJ")
+            return None
 
 
-    def is_ranted(self) -> bool:
+    def is_rented(self) -> bool:
         """ Check if the car is rented
         O is False and 1 is true due to sqlite limitation
         PRE : /

@@ -30,7 +30,8 @@ class Cli():
         pass
 
     def add_car(self):
-        pass
+        self.get_new_car()
+
 
     def delete_car(self):
         pass
@@ -51,7 +52,8 @@ class Cli():
     def show_cars(self, cars):
         """This function will put in shape all the cars in parameter."""
         table_for_tabulate = []
-        table_for_tabulate.append(["Identifiant", "Modèle", "Marque", "Moteur", "Type", "Dernier controle technique", "Emplacement dans le parking", "Est vendue ?", "Est louée ?"])
+        table_for_tabulate.append(["Identifiant", "Modèle", "Marque", "Moteur", "Type", "Dernier controle technique",
+                                   "Emplacement dans le parking", "Est vendue ?", "Est louée ?"])
         for row in cars:
             table_for_tabulate.append(self.create_row(row))
         print(tabulate(table_for_tabulate, headers='firstrow', tablefmt='fancy_grid', numalign="center"))
@@ -64,6 +66,22 @@ class Cli():
         """
         return [data.id, data.model, data.brand, data.motor, data.type, data.last_vehicle_safety_insurance,
                 "Oui" if data.is_sold() else "Non", "Oui" if data.is_rented() else "Non", data.position]
+
+    def get_new_car(self):
+        menu = self.core.menu_add_car()
+        new_car_data = []
+        for key, data_car in menu["inputs"].items():
+            if data_car[2] == 'int':
+                new_car_data.append(int(input(f"{key} : {data_car[0]}\n")))
+            else :
+                new_car_data.append(input(f"{key} : {data_car[0]}\n"))
+        table_for_tabulate = []
+        table_for_tabulate.append(["Marque", "Modèle", "Type", "Moteur", "Dernier controle technique"])
+        table_for_tabulate.append(new_car_data)
+        print(tabulate(table_for_tabulate, headers='firstrow', tablefmt='fancy_grid', numalign="center"))
+        if input("Voulez-vous vraiment ajouter cette voiture avec ces information ? (O/N)\n") in ['oui','Oui','OUI'
+                                                                                ,'o','O','yes','Yes','YES','y','Y']:
+            return new_car_data
 
     def exit(self):
         print("Au revoir !")

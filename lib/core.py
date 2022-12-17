@@ -20,7 +20,7 @@ class Core():
             "title": "Menu",
             "description": "Choisissez une option",
             "options": {
-                "1": ("Locatiprinton d'une voiture", "rent_car()"),
+                "1": ("Location d'une voiture", "rent_car()"),
                 "2": ("Restituer une voiture", "send_back()"),
                 "3": ("Ajouter une nouvelle voiture", "add_car()"),
                 "4": ("Supprimer une voiture du stock", "delete_car()"),
@@ -29,5 +29,18 @@ class Core():
                 "7": ("Lister les voitures louées", "show_rented()"),
                 "8": ("Lister les voitures vendues", "show_solded()"),
                 "9": ("Quitter", "exit()")
+            }
+        }
+
+    def menu_add_car(self):
+        return {
+            "title": "Menu ajout d'une voiture",
+            "description": "Entrer les données d'une voiture.",
+            "inputs": {
+                "1": ("Quel est la marque de la voiture ?", "rent_car()","str"),
+                "2": ("Quel est le model de la voiture ?", "send_back()","str"),
+                "3": ("Quel est le type de la voiture ?", "add_car()","str"),
+                "4": ("Quel est la puissance du moteur ?", "delete_car()","int"),
+                "5": ("Quand est la date du dernier controle technique ? (format AAAA-MM-JJ)", "show_all()","str"),
             }
         }
