@@ -15,6 +15,9 @@ class Car:
         self._rental_status = rental_status
         self.position = position
 
+    def __str__(self):
+        return f'{self.id}. {self.type} {self._model} {self._brand} ({self._motor})'
+
     def is_rentable(self) -> bool:
         today_date = datetime.today().strftime('%Y-%m-%d')
         d0 = date(int(today_date[:4]), int(today_date[5:7]), int(today_date[8:10]))

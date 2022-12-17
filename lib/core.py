@@ -1,5 +1,5 @@
 import sqlite3 as sl
-from lib import Stock, Car
+from lib import Stock, Car, Client
 
 class Core():
     def __init__(self):
@@ -13,6 +13,20 @@ class Core():
         self.cursor.execute("SELECT cars.car_id, model.model_name, brand.brand_name, model.engine, model.car_type, cars.last_safety_inspection, cars.is_sold, cars.is_ranted, cars.position FROM brand, cars, model")
         for row in self.cursor.fetchall():
             self.stock.add(Car(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]))
+
+    def menu_delete_car():
+        values = [str(car) for car in self.stock.get_cars()]
+        return {
+            "title": "Menu",
+            "description": "Choisissez une option",
+            "inputs": [
+                {
+                    "type": "select",
+                    "text": "Id de la voiture à supprimer",
+                    "values": values
+                }
+            ]
+        }
 
     def menu(self) -> set:
         """Returns the menu"""
