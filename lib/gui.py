@@ -80,7 +80,7 @@ class Gui:
                 ttk.Label(self.frm, text=row.type, padding=10).grid(column=5, row=row.id + 1)
                 ttk.Label(self.frm, text=row.last_vehicle_safety_insurance, padding=10).grid(column=5, row=row.id + 1)
                 ttk.Label(self.frm, text="Oui" if row.is_sold() else "Non", padding=10).grid(column=6, row=row.id + 1)
-                ttk.Label(self.frm, text="Oui" if row.is_ranted() else "Non", padding=10).grid(column=7, row=row.id + 1)
+                ttk.Label(self.frm, text="Oui" if row.is_rented() else "Non", padding=10).grid(column=7, row=row.id + 1)
                 ttk.Label(self.frm, text=row.position, padding=10).grid(column=8, row=row.id + 1)
 
             self.root.mainloop()
