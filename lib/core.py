@@ -10,7 +10,9 @@ class Core():
 
     def _init_stock(self) -> None:
         """Initialize the stock with the cars in the database"""
-        self.cursor.execute("SELECT cars.car_id, model.model_name, brand.brand_name, model.engine, model.car_type, cars.last_safety_inspection, cars.is_sold, cars.is_ranted, cars.position FROM brand, cars, model")
+        self.cursor.execute("SELECT cars.car_id, model.model_name, brand.brand_name, model.engine, model.car_type,"
+                            " cars.last_safety_inspection, cars.is_sold, cars.is_ranted, cars.position FROM brand, "
+                            "cars, model")
         for row in self.cursor.fetchall():
             self.stock.add(Car(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]))
 
@@ -50,11 +52,26 @@ class Core():
         return {
             "title": "Menu ajout d'une voiture",
             "description": "Entrer les données d'une voiture.",
-            "inputs": {
-                "1": ("Quel est la marque de la voiture ?", "rent_car()","str"),
-                "2": ("Quel est le model de la voiture ?", "send_back()","str"),
-                "3": ("Quel est le type de la voiture ?", "add_car()","str"),
-                "4": ("Quel est la puissance du moteur ?", "delete_car()","int"),
-                "5": ("Quand est la date du dernier controle technique ? (format AAAA-MM-JJ)", "show_all()","str"),
-            }
+            "inputs": [
+                {
+                    "type": "str",
+                    "text": "Quel est la marque de la voiture ?",
+                },
+                {
+                    "type": "str",
+                    "text": "Quel est le model de la voiture ?",
+                },
+                {
+                    "type": "str",
+                    "text": "Quel est le type de la voiture ?",
+                },
+                {
+                    "type": "int",
+                    "text": "Quel est la puissance du moteur ?",
+                },
+                {
+                    "type": "date",
+                    "text": "Quand est la date du dernier controle technique ? (format AAAA-MM-JJ)",
+                }
+            ]
         }

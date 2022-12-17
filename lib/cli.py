@@ -53,7 +53,7 @@ class Cli():
         """This function will put in shape all the cars in parameter."""
         table_for_tabulate = []
         table_for_tabulate.append(["Identifiant", "Modèle", "Marque", "Moteur", "Type", "Dernier controle technique",
-                                   "Emplacement dans le parking", "Est vendue ?", "Est louée ?"])
+                                   "Est vendue ?", "Est louée ?","Emplacement dans le parking"])
         for row in cars:
             table_for_tabulate.append(self.create_row(row))
         print(tabulate(table_for_tabulate, headers='firstrow', tablefmt='fancy_grid', numalign="center"))
@@ -70,11 +70,14 @@ class Cli():
     def get_new_car(self):
         menu = self.core.menu_add_car()
         new_car_data = []
-        for key, data_car in menu["inputs"].items():
-            if data_car[2] == 'int':
-                new_car_data.append(int(input(f"{key} : {data_car[0]}\n")))
+        for new_car_input in menu["inputs"]:
+            user_input = input(f"{new_car_input['text']}\n")
+            if user_input == "Annuler":
+                return None
+            elif new_car_input["type"] == 'int':
+                new_car_data.append(int(user_input))
             else :
-                new_car_data.append(input(f"{key} : {data_car[0]}\n"))
+                new_car_data.append(user_input)
         table_for_tabulate = []
         table_for_tabulate.append(["Marque", "Modèle", "Type", "Moteur", "Dernier controle technique"])
         table_for_tabulate.append(new_car_data)
