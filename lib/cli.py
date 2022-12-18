@@ -1,6 +1,7 @@
 from tabulate import tabulate
 from lib import Stock, Core
 
+
 class Cli():
     def __init__(self):
         self.core = Core()
@@ -15,7 +16,7 @@ class Cli():
 {menu["title"]}
 {options}
 {menu["description"]} : """)
-            if option_choose.isdigit() and int(option_choose)>0 and int(option_choose)<=len(menu["options"]):
+            if option_choose.isdigit() and int(option_choose) > 0 and int(option_choose) <= len(menu["options"]):
                 try:
                     exec(f"self.{menu['options'][option_choose][1]}")
                 except AttributeError:
@@ -32,9 +33,26 @@ class Cli():
     def add_car(self):
         self.get_new_car()
 
-
-    def delete_car(self):
-        pass
+    def menu_delete_car(self):
+        self.show_all()
+        menu = self.core.menu_delete_car()
+        user_input = input(f"{menu['inputs'][0]['text']}\n")
+        if user_input == "Annuler":
+            return None
+        else:
+            cars = menu['inputs'][0]['values']
+            car_to_delete = [x for x in cars if x.id == int(user_input)]
+            if input(f"Voulez-vous vraiment supprimer cette voitre : {car_to_delete[0].__str__()} ? (O/N)\n") in ['oui',
+                                                                                                                  'Oui',
+                                                                                                                  'OUI',
+                                                                                                                  'o',
+                                                                                                                  'O',
+                                                                                                                  'yes',
+                                                                                                                  'Yes',
+                                                                                                                  'YES',
+                                                                                                                  'y',
+                                                                                                                  'Y']:
+                return user_input
 
     def show_all(self):
         """This function will put in shape all the data from the DB and show it."""
@@ -53,7 +71,7 @@ class Cli():
         """This function will put in shape all the cars in parameter."""
         table_for_tabulate = []
         table_for_tabulate.append(["Identifiant", "Modèle", "Marque", "Moteur", "Type", "Dernier controle technique",
-                                   "Est vendue ?", "Est louée ?","Emplacement dans le parking"])
+                                   "Est vendue ?", "Est louée ?", "Emplacement dans le parking"])
         for row in cars:
             table_for_tabulate.append(self.create_row(row))
         print(tabulate(table_for_tabulate, headers='firstrow', tablefmt='fancy_grid', numalign="center"))
@@ -76,14 +94,14 @@ class Cli():
                 return None
             elif new_car_input["type"] == 'int':
                 new_car_data.append(int(user_input))
-            else :
+            else:
                 new_car_data.append(user_input)
         table_for_tabulate = []
         table_for_tabulate.append(["Marque", "Modèle", "Type", "Moteur", "Dernier controle technique"])
         table_for_tabulate.append(new_car_data)
         print(tabulate(table_for_tabulate, headers='firstrow', tablefmt='fancy_grid', numalign="center"))
-        if input("Voulez-vous vraiment ajouter cette voiture avec ces information ? (O/N)\n") in ['oui','Oui','OUI'
-                                                                                ,'o','O','yes','Yes','YES','y','Y']:
+        if input("Voulez-vous vraiment ajouter cette voiture avec ces information ? (O/N)\n") in ['oui', 'Oui', 'OUI'
+            , 'o', 'O', 'yes', 'Yes', 'YES', 'y', 'Y']:
             return new_car_data
 
     def exit(self):

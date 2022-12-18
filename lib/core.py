@@ -17,7 +17,7 @@ class Core():
             self.stock.add(Car(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]))
 
     def menu_delete_car(self) -> dict:
-        values = [str(car) for car in self.stock.get_cars()]
+        values = [car for car in self.stock.get_cars()]
         return {
             "title": "Menu",
             "description": "Choisissez une option",
@@ -39,7 +39,7 @@ class Core():
                 "1": ("Location d'une voiture", "rent_car()"),
                 "2": ("Restituer une voiture", "send_back()"),
                 "3": ("Ajouter une nouvelle voiture", "add_car()"),
-                "4": ("Supprimer une voiture du stock", "delete_car()"),
+                "4": ("Supprimer une voiture du stock", "menu_delete_car()"),
                 "5": ("Lister toutes les voitures", "show_all()"),
                 "6": ("Lister les voitures disponibles", "show_rentable()"),
                 "7": ("Lister les voitures louées", "show_rented()"),

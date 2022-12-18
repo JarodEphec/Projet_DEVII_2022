@@ -16,7 +16,7 @@ class Car:
         self.position = position
 
     def __str__(self):
-        return f'{self.id}. {self.type} {self._model} {self._brand} ({self._motor})'
+        return f'{self.id}. {self._model} {self._brand} {self.type} ({self._motor})'
 
     def is_rentable(self) -> bool:
         """ Tell if the car is retable or not, the car is rentable if it's safety check is due to over 30 days
