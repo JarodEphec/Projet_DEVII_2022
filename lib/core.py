@@ -19,13 +19,18 @@ class Core():
     def menu_delete_car(self) -> dict:
         values = [str(car) for car in self.stock.get_cars()]
         return {
-            "title": "Menu",
+            "title": "Supprimer une voiture",
             "description": "Choisissez une option",
             "inputs": [
                 {
                     "type": "select",
                     "text": "Id de la voiture à supprimer",
                     "values": values
+                },
+                {
+                    "type": "button",
+                    "text": "Supprimer",
+                    "values": "delete_car()"
                 }
             ]
         }
@@ -38,8 +43,8 @@ class Core():
             "options": {
                 "1": ("Location d'une voiture", "rent_car()"),
                 "2": ("Restituer une voiture", "send_back()"),
-                "3": ("Ajouter une nouvelle voiture", "add_car()"),
-                "4": ("Supprimer une voiture du stock", "delete_car()"),
+                "3": ("Ajouter une nouvelle voiture", "menu_add_car()"),
+                "4": ("Supprimer une voiture du stock", "menu_delete_car()"),
                 "5": ("Lister toutes les voitures", "show_all()"),
                 "6": ("Lister les voitures disponibles", "show_rentable()"),
                 "7": ("Lister les voitures louées", "show_rented()"),
