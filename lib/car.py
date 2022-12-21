@@ -15,8 +15,24 @@ class Car:
         self._rental_status = rental_status
         self.position = position
 
+    def __str__(self):
+        return f'{self.id}. {self.type} {self._model} {self._brand} ({self._motor})'
+
     def is_rentable(self) -> bool:
+        """ Tell if the car is retable or not, the car is rentable if it's safety check is due to over 30 days
+        return true if the date of today minus the date of the last check lower than 335 if not return false
+        PRE : /
+        POST : /
+        RAISE : Return an error if the date format is wrong
+        """
+        try:
+            # formatting the date using strptime() function
+            datetime.strptime(self._last_vehicle_safety_insurance, '%Y-%m-%d')
+
+        except ValueError:
+            print("Format incorrect, il devrait etre AAAA-MM-JJ")
         today_date = datetime.today().strftime('%Y-%m-%d')
+        # prepare the data to be formatted in a number
         d0 = date(int(today_date[:4]), int(today_date[5:7]), int(today_date[8:10]))
         d1 = date(int(self._last_vehicle_safety_insurance[:4]), int(self._last_vehicle_safety_insurance[5:7]),
                   int(self._last_vehicle_safety_insurance[8:10]))
@@ -43,10 +59,50 @@ class Car:
 
     @property
     def last_vehicle_safety_insurance(self):
-        return self._last_vehicle_safety_insurance
+        """ Return the last_vehicle_safety_insurance's string
+        PRE : /
+        POST : /
+        RAISE : Return an error if the date format is wrong
+        """
+        try:
+            # formatting the date using strptime() function
+            datetime.strptime(self._last_vehicle_safety_insurance, '%Y-%m-%d')
+            return self._last_vehicle_safety_insurance
+        except ValueError:
+            print("Format incorrect, il devrait etre AAAA-MM-JJ")
+            return None
+
 
     def is_rented(self) -> bool:
-        return True if self._rental_status == 1 else False
+        """ Check if the car is rented
+        O is False and 1 is true due to sqlite limitation
+        PRE : /
+        POST : /
+        RAISE : Return an error if the is_ranted value is wrong
+        """
+        try:
+            if type(self._rental_status) == int and (self._rental_status in range(0, 1, 1)):
+                return True if self._rental_status == 1 else False
+            else:
+                raise TypeError(f"La donnée is_ranted pour la voiture avec l'id {self.id}")
+        except TypeError as error:
+            print(error)
+            return None
+
 
     def is_sold(self) -> bool:
-        return True if self._sold_status == 1 else False
+        """ Check if the car is sold
+        O is False and 1 is true due to sqlite limitation
+        PRE : /
+        POST : /
+        RAISE : Return an error if the is_sold value is wrong
+        """
+
+        try:
+            if type(self._sold_status) == int and (self._sold_status in range(0, 1, 1)):
+                return True if self._sold_status == 1 else False
+            else:
+                raise TypeError(f"La donnée is_sold pour la voiture avec l'id {self.id}")
+        except TypeError as error:
+            print(error)
+            return None
