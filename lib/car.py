@@ -28,18 +28,17 @@ class Car:
         try:
             # formatting the date using strptime() function
             datetime.strptime(self._last_vehicle_safety_insurance, '%Y-%m-%d')
-
+            today_date = datetime.today().strftime('%Y-%m-%d')
+            # prepare the data to be formatted in a number
+            d0 = date(int(today_date[:4]), int(today_date[5:7]), int(today_date[8:10]))
+            d1 = date(int(self._last_vehicle_safety_insurance[:4]), int(self._last_vehicle_safety_insurance[5:7]),
+                      int(self._last_vehicle_safety_insurance[8:10]))
+            delta = d0 - d1
+            if delta.days >= 335:
+                return False
+            return True
         except ValueError:
             print("Format incorrect, il devrait etre AAAA-MM-JJ")
-        today_date = datetime.today().strftime('%Y-%m-%d')
-        # prepare the data to be formatted in a number
-        d0 = date(int(today_date[:4]), int(today_date[5:7]), int(today_date[8:10]))
-        d1 = date(int(self._last_vehicle_safety_insurance[:4]), int(self._last_vehicle_safety_insurance[5:7]),
-                  int(self._last_vehicle_safety_insurance[8:10]))
-        delta = d0 - d1
-        if delta.days >= 335:
-            return False
-        return True
 
     @property
     def model(self):
@@ -72,7 +71,6 @@ class Car:
             print("Format incorrect, il devrait etre AAAA-MM-JJ")
             return None
 
-
     def is_rented(self) -> bool:
         """ Check if the car is rented
         O is False and 1 is true due to sqlite limitation
@@ -80,15 +78,11 @@ class Car:
         POST : /
         RAISE : Return an error if the is_ranted value is wrong
         """
-        try:
-            if type(self._rental_status) == int and (self._rental_status in range(0, 1, 1)):
-                return True if self._rental_status == 1 else False
-            else:
-                raise TypeError(f"La donnée is_ranted pour la voiture avec l'id {self.id}")
-        except TypeError as error:
-            print(error)
-            return None
 
+        if type(self._rental_status) == int and (self._rental_status in range(0, 2, 1)):
+            return True if self._rental_status == 1 else False
+        else:
+            raise ValueError(f"La donnée is_ranted pour la voiture avec l'id {self.id}")
 
     def is_sold(self) -> bool:
         """ Check if the car is sold
@@ -98,11 +92,7 @@ class Car:
         RAISE : Return an error if the is_sold value is wrong
         """
 
-        try:
-            if type(self._sold_status) == int and (self._sold_status in range(0, 1, 1)):
-                return True if self._sold_status == 1 else False
-            else:
-                raise TypeError(f"La donnée is_sold pour la voiture avec l'id {self.id}")
-        except TypeError as error:
-            print(error)
-            return None
+        if type(self._sold_status) == int and (self._sold_status in range(0, 2, 1)):
+            return True if self._sold_status == 1 else False
+        else:
+            raise ValueError(f"La donnée is_sold pour la voiture avec l'id {self.id}")
