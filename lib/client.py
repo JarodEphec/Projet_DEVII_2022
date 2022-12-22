@@ -18,7 +18,7 @@ class Client():
     def add_client(self, id, name, date_of_inscription, history, email) :
         """This method allows the user to add a client in the database
             PRE : id is an integer, name is a string, date_of_inscription is an integer, history is a string and email is a string 
-            POST : /
+            POST : the customer's profile is added to the database
             """
         return {
             "title": "Menu ajout d'un client",
