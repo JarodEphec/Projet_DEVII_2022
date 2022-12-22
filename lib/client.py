@@ -1,4 +1,4 @@
-from lib import History
+from lib import History, Stock
 from datetime import datetime
 from datetime import date
 import argparse
@@ -7,7 +7,7 @@ import sqlite3 as sl
 
 
 class Client():
-    def __init__(self, id, name, email, date_of_inscription ,history=History(), customer=[]):
+    def __init__(self, id, name, email, date_of_inscription ,history=History(), customer = []):
         self.id = id
         self.name = name
         self._email = email
@@ -17,9 +17,8 @@ class Client():
     
     def add_client(self, id, name, date_of_inscription, history, email) :
         """This method allows the user to add a client in the database
-            PRE : str
+            PRE : id is an integer, name is a string, date_of_inscription is an integer, history is a string and email is a string 
             POST : /
-            RAISE : /
             """
         return {
             "title": "Menu ajout d'un client",
@@ -46,33 +45,42 @@ class Client():
 
 
     def remove_client(self, values):
+        """This method removes a customer from the database 
+           PRE: has to be called by menu_remove_car, values is an integer
+           POST: The customer is removed from the database """
         self.cursor.execute(f"DELETE FROM client WHERE id = '{values}'")
 
 
     
-    def modify_client_information(self) :
+    def modify_client_information(self, customer) :
+        """This method allows the user to modify a customer profile 
+           PRE: customer is a sequence
+           POST : The customer's profile is modified."""
         to_modify = int(input("Entrez l'id du profil client à modifier svp :"))
-        for i in self.customer :
-            if to_modify == int(self.customer[0]) :
+        for i in customer :
+            if to_modify == int(customer[0]) :
                 parser = argparse.ArgumentParser(description=' Quel champ souhaitez-vous modifier ? (name ou date_of_inscription ou history ou email')
                 parser.add_argument('name', 'date_of_inscription', 'history', 'email', default='name', help='you can either modify the name, the date of inscription, the email or the history')
                 args = parser.parse_args()
                 if args == 'name' :
                     new_name = input("Quel est le nouveau nom que vous souhaitez entrer ?")
-                    self.customer[1] = new_name
+                    customer[1] = new_name
                 elif args == "date_of_inscription" :
                     new_date_of_inscription = input("Quelle est la nouvelle date d'inscription que vous souhaitez entrer ?")
-                    self.customer[2] =new_date_of_inscription
+                    customer[2] =new_date_of_inscription
                 elif args == 'history' :
                     new_history = input('Quel hisotrique souhaitez-vous indiquer ?')
-                    self.customer[3] = new_history
+                    customer[3] = new_history
                 elif args =='email' :
                     new_email = input ('Quel est le nouvel email que vous souhaitez indiquer ?')
-                    self.customer[4] = new_email
+                    customer[4] = new_email
             else :
                 pass
 
     def is_loyal(self) -> bool:
+        """This method applies a discount to a customer's profile if he is loyal enough
+           PRE : /
+           POST : The discount is applied if the customer's profile fits the needs asked by the system"""
         for i in self.customer[2]:
             today_date = datetime.today().strftime('%Y-%m-%d')
         d0 = date(int(today_date[:4]), int(today_date[5:7]), int(today_date[8:10]))
@@ -89,4 +97,7 @@ class Client():
             pass
 
     def get_client(self) :
+        """This method get the id of the wanted customer
+           PRE : /
+           POST: Return the id of the customer"""
         return self._id

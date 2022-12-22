@@ -17,7 +17,9 @@ class Core():
             self.stock.add(Car(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]))
 
     def look_client_information(self):
-        """this method is fetching all the data related to the customers in the database"""
+        """this method is fetching all the data related to the customers in the database
+           PRE:/
+           POST: a tab is filled with all the customer's information"""
         self.cursor.execute("SELECT client.id, client.name, client.date_of_inscription, client.history, client.email from client ")
         for row in self.cursor.fetchall():
             self.customer.add(Client(row[0], row[1], row[2], row[3], row[4]))
@@ -37,7 +39,9 @@ class Core():
         }
 
     def menu_remove_client(self, id) :
-        """This method shows the user a menu to remove a client from the database"""
+        """This method shows the user a menu to remove a customer from the database
+           PRE : id is an integer
+           POST:return the menu to remove the customer from the database"""
         values = [str(Client) for client in self.get_client()]
         return {
             "title": "Supprimer un client",
