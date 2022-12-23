@@ -38,7 +38,7 @@ class Gui:
             if self.core.menu() == False:
                 raise Exception("Imposible de trouver les informations a afficher.")
             menu = self.core.menu()
-            ttk.Label(self.frm, text="test", padding=10).grid(column=0, row=0, columnspan=6)
+            ttk.Label(self.frm, text="AxelR.", padding=10).grid(column=0, row=0, columnspan=6)
             for key, option in menu["options"].items():
                 if int(key) != 9:
                     print(f"self.{menu['options'][key][1][:-2]}")

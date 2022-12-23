@@ -1,20 +1,23 @@
-import sqlite3 as sl
+import csv
 from lib import Stock, Car, Client
 
-class Core():
+
+class Core:
     def __init__(self):
-        self.db = sl.connect("dbAxelR.db")
-        self.cursor = self.db.cursor()
+        # self.db = open('dbAxelR.csv', mode='r')
+        # self.cursor = self.db.cursor()
         self.stock = Stock(79)
         self._init_stock()
 
     def _init_stock(self) -> None:
         """Initialize the stock with the cars in the database"""
-        self.cursor.execute("SELECT cars.car_id, model.model_name, brand.brand_name, model.engine, model.car_type,"
-                            " cars.last_safety_inspection, cars.is_sold, cars.is_ranted, cars.position FROM brand, "
-                            "cars, model")
-        for row in self.cursor.fetchall():
-            self.stock.add(Car(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]))
+        csv_reader = csv.DictReader(open('cars.csv', mode='r'))
+        for row in csv_reader:
+            self.stock.add(
+                Car(id=int(row["car_id"]), brand=row["brand_name"], model=row["model_name"], type=row["car_type"],
+                    motor=int(row["engine"]), last_vehicle_safety_insurance=row["last_vehicle_safety_insurance"],
+                    rental_status=int(row["is_ranted"]), sold_status=int(row["is_sold"]), position=int(row["position"]),
+                    deleted_status=int(row["is_deleted"])))
 
     def menu_delete_car(self) -> dict:
         values = [car for car in self.stock.get_cars()]
@@ -76,6 +79,7 @@ class Core():
             ]
         }
 
+    """
     def is_brand_in_db(self, brand_test):
         self.cursor.execute(f"SELECT * FROM brand")
 
@@ -102,3 +106,4 @@ class Core():
         self.cursor.execute(
             f"INSERT INTO cars(model_id, last_safety_inspection, brand_id, car_type) VALUES('{self.is_model_in_db(new_car.motor, new_car.model, self.is_brand_in_db(new_car.brand), new_car.type)}','{new_car.last_vehicle_safety_insurance}','0','{new_car.sold_status}','{new_car.rental_status}','0')")
 
+    """

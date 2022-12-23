@@ -1,5 +1,5 @@
 from tabulate import tabulate
-from lib import Stock, Core, Car
+from lib import Stock, Core
 
 
 class Cli():
@@ -102,8 +102,9 @@ class Cli():
         print(tabulate(table_for_tabulate, headers='firstrow', tablefmt='fancy_grid', numalign="center"))
         if input("Voulez-vous vraiment ajouter cette voiture avec ces information ? (O/N)\n") in ['oui', 'Oui', 'OUI'
             , 'o', 'O', 'yes', 'Yes', 'YES', 'y', 'Y']:
-            new_car = Car(0, *new_car_data, 0, 0, 0)
-            self.core.new_car_to_db(new_car)
+            #new_car = Car(0, *new_car_data, 0, 0, 0)
+            #self.core.new_car_to_db(new_car)
+            print("fonctionabilité d\'ajout pas encore faite")
 
     def exit(self):
         print("Au revoir !")

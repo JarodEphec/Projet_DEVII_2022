@@ -4,7 +4,7 @@ from datetime import date
 
 class Car:
     def __init__(self, id, model, brand, motor, type, last_vehicle_safety_insurance, sold_status, rental_status,
-                 position):
+                 position, deleted_status):
         self.id = id
         self._model = model
         self._brand = brand
@@ -14,6 +14,7 @@ class Car:
         self._sold_status = sold_status
         self._rental_status = rental_status
         self.position = position
+        self._deleted_status = deleted_status
 
     def __str__(self):
         return f'{self.id}. {self._model} {self._brand} {self.type} ({self._motor})'
