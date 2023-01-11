@@ -3,24 +3,34 @@ from lib.car import Car
 class Stock():
     def __init__(self, nb_spot, cars=[]):
         self._nb_spot = nb_spot
-        self._cars = cars
+        self._cars = list(cars)
+        self._parking = [None] * nb_spot
 
-    def add(self, car) -> None:
+    def add(self, car) -> int:
         """Add a car to the stock"""
         if car in self._cars:
             raise ValueError("Car already in stock")
         elif type(car) != Car:
             raise ValueError("Car is not a car")
         else:
+            car.send_back()
             self._cars.append(car)
+            position = self._find_clear_position()
+            if position is None:
+                raise ValueError("No clear position in the stock")
+            else:
+                self._parking[position] = car
+                return self._parking.index(car)
 
     def rent(self, car) -> int:
         """Rent a car"""
-        if car not in self._cars:
-            raise ValueError("Car not in stock")
+        if car not in self._parking:
+            raise ValueError("Car not in the parking")
         elif car.is_rentable():
             car.rent()
-            return car.position
+            position = self._cars.index(car)
+            self._parking[position] = None
+            return position
         else:
             raise ValueError("Car not rentable")
 
@@ -29,46 +39,38 @@ class Stock():
         if car not in self._cars:
             raise ValueError("Car not in stock")
         else:
-            return self._find_clear_position()
+            position = self._find_clear_position()
+            self._parking[position] = car
+            return position
 
     def _find_clear_position(self) -> int:
         """Find a clear position in the stock"""
-        used_positions = [car.position for car in self._cars if car.position != None]
-        for i in range(self._nb_spot):
-            if i not in used_positions:
+        for i, spot in enumerate(self._parking):
+            if type(spot) is not Car:
                 return i
         raise ValueError("No clear position in the stock")   
 
-    def remove(self, car) -> None:
+    def remove(self, car) -> int:
         """Remove a car from the stock"""
         if car not in self._cars:
             raise ValueError("Car not in stock")
         else:
             self._cars.remove(car)
+            position = self._parking.index(car)
+            self._parking[position] = None
+            return position
 
     def get_rentable(self) -> list[Car]:
         """Returns a list of all rentable cars"""
-        rentable_cars = []
-        for car in self._cars:
-            if car.is_rentable():
-                rentable_cars.append(car)
-        return rentable_cars
+        return [car for car in self._parking if car is not None]
 
     def get_rented(self) -> list[Car]:
         """Returns a list of all rentable cars"""
         rented_cars = []
         for car in self._cars:
-            if car.is_sold():
+            if car.is_rented():
                 rented_cars.append(car)
         return rented_cars
-
-    def get_solded(self) -> list[Car]:
-        """Returns a list of all solded cars"""
-        solded_cars = []
-        for car in self._cars:
-            if car.is_rented():
-                solded_cars.append(car)
-        return solded_cars
 
     def get_cars(self) -> list[Car]:
         return self._cars

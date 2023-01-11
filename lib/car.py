@@ -3,8 +3,8 @@ from datetime import date
 
 
 class Car:
-    def __init__(self, id, model, brand, motor, type, last_vehicle_safety_insurance, sold_status, rental_status,
-                 position):
+    def __init__(self, id, model, brand, motor, type, last_vehicle_safety_insurance="2024-11-01", sold_status=False, rental_status=False,
+                 position=0):
         self.id = id
         self._model = model
         self._brand = brand
@@ -18,6 +18,14 @@ class Car:
     def __str__(self):
         return f'{self.id}. {self.type} {self._model} {self._brand} ({self._motor})'
 
+    def rent(self) -> None:
+        """Change the rental status of the car to True"""
+        self._rental_status = True
+
+    def send_back(self) -> None:
+        """Change the rental status of the car to False"""
+        self._rental_status = False
+
     def is_rentable(self) -> bool:
         """ Tell if the car is retable or not, the car is rentable if it's safety check is due to over 30 days
         return true if the date of today minus the date of the last check lower than 335 if not return false
@@ -25,6 +33,8 @@ class Car:
         POST : /
         RAISE : Return an error if the date format is wrong
         """
+        if self._sold_status or self._rental_status:
+            return False
         try:
             # formatting the date using strptime() function
             datetime.strptime(self._last_vehicle_safety_insurance, '%Y-%m-%d')
@@ -80,14 +90,7 @@ class Car:
         POST : /
         RAISE : Return an error if the is_ranted value is wrong
         """
-        try:
-            if type(self._rental_status) == int and (self._rental_status in range(0, 1, 1)):
-                return True if self._rental_status == 1 else False
-            else:
-                raise TypeError(f"La donnée is_ranted pour la voiture avec l'id {self.id}")
-        except TypeError as error:
-            print(error)
-            return None
+        return self._rental_status
 
 
     def is_sold(self) -> bool:
